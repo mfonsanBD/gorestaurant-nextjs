@@ -1,7 +1,10 @@
 import { APPNAME } from '@/app/layout'
 import { AdminProductList } from '@/components/AdminProductList'
 import { Header } from '@/components/Header'
+import { authOptions } from '@/lib/auth'
 import { Metadata } from 'next'
+import { getServerSession } from 'next-auth'
+import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
   title: `Área Administrativa - Produtos - ${APPNAME}`,
@@ -70,7 +73,13 @@ const products: ProductsProps[] = [
   },
 ]
 
-export default function AdminPage() {
+export default async function AdminPage() {
+  const session = await getServerSession(authOptions)
+
+  if (!session) {
+    redirect('/')
+  }
+
   return (
     <>
       <Header />

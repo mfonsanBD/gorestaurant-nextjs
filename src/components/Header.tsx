@@ -1,16 +1,16 @@
 'use client'
 
 import { Button } from './ui/button'
-import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import { useSession } from 'next-auth/react'
 
 export const Header = () => {
-  const pathname = usePathname()
+  const { data } = useSession()
   return (
     <header className="bg-[#C72828]">
       <nav
         aria-label="Global"
-        className={`mx-auto flex max-w-7xl items-center ${!pathname.includes('admin') ? 'justify-between' : 'justify-center'} p-6 lg:px-8 lg:pb-32 lg:pt-12`}
+        className={`mx-auto flex max-w-7xl items-center ${!data?.user ? 'justify-between' : 'justify-center'} p-6 lg:px-8 lg:pb-32 lg:pt-12`}
       >
         <div className="flex">
           <a href="#" className="-m-1.5 p-1.5">
@@ -23,7 +23,7 @@ export const Header = () => {
           </a>
         </div>
 
-        {!pathname.includes('admin') && (
+        {!data?.user && (
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <Button variant="secondary" asChild>
               <Link href="/admin/produtos">Acesso Restrito</Link>
