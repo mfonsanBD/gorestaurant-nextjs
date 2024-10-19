@@ -1,10 +1,16 @@
+import { APPNAME } from '@/app/layout'
+import { AdminProductList } from '@/components/AdminProductList'
 import { Header } from '@/components/Header'
-import { ProductList } from '@/components/ProductList'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: `Área Administrativa - Produtos - ${APPNAME}`,
+}
 
 const products: ProductsProps[] = [
   {
     id: 1,
-    name: 'Hamburguer',
+    name: 'Hamburguer 01',
     description:
       'O melhor hamburguer da região. pão australiano, hamburguer de picanha 120g, bacon e cheddar',
     photo:
@@ -14,7 +20,7 @@ const products: ProductsProps[] = [
   },
   {
     id: 2,
-    name: 'Hamburguer',
+    name: 'Hamburguer 02',
     description:
       'O melhor hamburguer da região. pão australiano, hamburguer de picanha 120g, bacon e cheddar',
     photo:
@@ -24,7 +30,7 @@ const products: ProductsProps[] = [
   },
   {
     id: 3,
-    name: 'Hamburguer',
+    name: 'Hamburguer 03',
     description:
       'O melhor hamburguer da região. pão australiano, hamburguer de picanha 120g, bacon e cheddar',
     photo:
@@ -34,7 +40,7 @@ const products: ProductsProps[] = [
   },
   {
     id: 4,
-    name: 'Hamburguer',
+    name: 'Hamburguer 04',
     description:
       'O melhor hamburguer da região. pão australiano, hamburguer de picanha 120g, bacon e cheddar',
     photo:
@@ -44,7 +50,7 @@ const products: ProductsProps[] = [
   },
   {
     id: 5,
-    name: 'Hamburguer',
+    name: 'Hamburguer 05',
     description:
       'O melhor hamburguer da região. pão australiano, hamburguer de picanha 120g, bacon e cheddar',
     photo:
@@ -54,7 +60,7 @@ const products: ProductsProps[] = [
   },
   {
     id: 6,
-    name: 'Hamburguer',
+    name: 'Hamburguer 06',
     description:
       'O melhor hamburguer da região. pão australiano, hamburguer de picanha 120g, bacon e cheddar',
     photo:
@@ -64,13 +70,13 @@ const products: ProductsProps[] = [
   },
 ]
 
-export default function Menu() {
+export default function AdminPage() {
   return (
     <>
       <Header />
 
       <main className="mx-auto mt-0 max-w-7xl p-6 lg:-mt-20 lg:px-8">
-        <ProductList products={products} />
+        <AdminProductList products={products} />
       </main>
     </>
   )
