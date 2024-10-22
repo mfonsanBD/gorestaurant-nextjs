@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
@@ -112,7 +113,15 @@ export const AddProductForm = ({ onModalOpen }: ProductPageProps) => {
       const fileName: string = `${uuidv4()}.jpg`
 
       if (photoIsUrl) {
-        await saveFromUrl(data.url, fileName)
+        const bodyData = {
+          url: data.url,
+          filename: fileName,
+        }
+
+        await fetch(`/api/saveUrl`, {
+          method: 'POST',
+          body: JSON.stringify(bodyData),
+        })
       } else {
         const formData = new FormData()
         formData.append('file', data.file as File)
@@ -125,7 +134,8 @@ export const AddProductForm = ({ onModalOpen }: ProductPageProps) => {
       }
 
       const allData = { ...data, userId: session?.user.id, photo: fileName }
-      const result = await addProduct(allData)
+      const { url, file, isUrl, ...rest } = allData
+      const result = await addProduct(rest)
 
       if (result.statusCode === 201) {
         reset()

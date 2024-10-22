@@ -24,7 +24,6 @@ import {
   AlertDialogTitle,
 } from './ui/alert-dialog'
 import { deleteProduct, updateProductStatus } from '@/actions/product'
-import { useToast } from '@/hooks/use-toast'
 
 export const ProductItem = ({
   description,
@@ -38,61 +37,48 @@ export const ProductItem = ({
   const [openEdit, setOpenEdit] = useState(false)
   const [openDelete, setOpenDelete] = useState(false)
 
-  const { toast } = useToast()
-
   const handleProductIsActive = async (value: boolean) => {
     setproductIsActive(value)
-
-    const res = await updateProductStatus(value, id)
-
-    if (res.statusCode === 201) {
-      toast({
-        title: 'Sucesso:',
-        description: res.message,
-        variant: 'default',
-      })
-    } else if (res.statusCode === 500) {
-      toast({
-        title: 'Erro:',
-        description: res.message,
-        variant: 'destructive',
-      })
-    }
+    await updateProductStatus(value, id!)
   }
 
   const [isDeleting, setIsDeleting] = useState(false)
   const handleDeleteProduct = async () => {
     setIsDeleting(true)
 
-    await deleteProduct(id)
+    await deleteProduct(id!)
     setOpenDelete(false)
 
     setIsDeleting(false)
   }
 
   return (
-    <div className="relative rounded-lg bg-white">
-      <div className="relative h-56 w-full">
-        <Image
-          src={photo}
-          alt={name}
-          fill
-          priority
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
-          className="w-full rounded-t-lg object-cover"
-        />
-      </div>
+    <div className="relative flex flex-col items-center justify-between rounded-lg bg-white">
+      <div>
+        <div className="relative h-56 w-full">
+          <Image
+            src={`/upload/${photo}`}
+            alt={name}
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+            className="w-full rounded-t-lg object-cover"
+          />
+        </div>
 
-      <div className="p-4">
-        <h3 className="font-poppins text-lg font-semibold text-zinc-600">
-          {name}
-        </h3>
+        <div className="p-4">
+          <h3 className="font-poppins text-lg font-semibold text-zinc-600">
+            {name}
+          </h3>
 
-        <p className="pt-1 text-sm font-normal text-zinc-400">{description}</p>
+          <p className="pt-1 text-sm font-normal text-zinc-400">
+            {description}
+          </p>
 
-        <p className="pt-2 text-lg font-semibold text-emerald-500">
-          {FormatPrice(price)}
-        </p>
+          <p className="pt-2 text-lg font-semibold text-emerald-500">
+            {FormatPrice(price)}
+          </p>
+        </div>
       </div>
 
       <div className="flex w-full items-center justify-between gap-2 rounded-b-lg bg-zinc-100 p-4">

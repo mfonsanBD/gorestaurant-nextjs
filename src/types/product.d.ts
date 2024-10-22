@@ -1,5 +1,5 @@
 declare interface ProductsProps {
-  id: number
+  id?: number
   name: string
   description: string
   photo: string
