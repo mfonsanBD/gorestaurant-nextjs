@@ -4,15 +4,14 @@ import { SquarePlus } from 'lucide-react'
 import { ProductItem } from './ProductItem'
 import {
   AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
-  AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
 } from './ui/alert-dialog'
 import { useState } from 'react'
+import { AddProductForm } from './AddProductForm'
+import clsx from 'clsx'
 
 export const AdminProductList = ({ products }: ProductItemsProps) => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -32,16 +31,19 @@ export const AdminProductList = ({ products }: ProductItemsProps) => {
               Preencha o formulário abaixo para cadastrar seu produto.
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction>Adicionar</AlertDialogAction>
-          </AlertDialogFooter>
+          <AddProductForm onModalOpen={setModalIsOpen} />
         </AlertDialogContent>
       </AlertDialog>
 
       <button
         onClick={() => setModalIsOpen(true)}
-        className="flex h-full w-full flex-col items-center justify-center gap-2 rounded-lg bg-white text-zinc-400"
+        className={clsx(
+          'flex w-full flex-col items-center justify-center gap-2 rounded-lg bg-white text-zinc-400',
+          {
+            'h-full': products.length > 0,
+            'h-96': products.length == 0,
+          },
+        )}
       >
         <SquarePlus size={32} />
         <p>Adicionar Prato</p>

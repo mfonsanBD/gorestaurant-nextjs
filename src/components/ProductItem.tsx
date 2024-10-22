@@ -5,7 +5,7 @@ import { Switch } from './ui/switch'
 import { Label } from './ui/label'
 import { FormatPrice } from '@/utils/priceFormatter'
 import { useState } from 'react'
-import { PenLine, Trash2 } from 'lucide-react'
+import { LoaderCircle, PenLine, Trash2 } from 'lucide-react'
 import { Button } from './ui/button'
 import {
   Tooltip,
@@ -23,6 +23,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from './ui/alert-dialog'
+import { deleteProduct, updateProductStatus } from '@/actions/product'
+import { useToast } from '@/hooks/use-toast'
 
 export const ProductItem = ({
   description,
@@ -36,8 +38,36 @@ export const ProductItem = ({
   const [openEdit, setOpenEdit] = useState(false)
   const [openDelete, setOpenDelete] = useState(false)
 
-  const handleProductIsActive = (value: boolean) => {
+  const { toast } = useToast()
+
+  const handleProductIsActive = async (value: boolean) => {
     setproductIsActive(value)
+
+    const res = await updateProductStatus(value, id)
+
+    if (res.statusCode === 201) {
+      toast({
+        title: 'Sucesso:',
+        description: res.message,
+        variant: 'default',
+      })
+    } else if (res.statusCode === 500) {
+      toast({
+        title: 'Erro:',
+        description: res.message,
+        variant: 'destructive',
+      })
+    }
+  }
+
+  const [isDeleting, setIsDeleting] = useState(false)
+  const handleDeleteProduct = async () => {
+    setIsDeleting(true)
+
+    await deleteProduct(id)
+    setOpenDelete(false)
+
+    setIsDeleting(false)
   }
 
   return (
@@ -150,7 +180,16 @@ export const ProductItem = ({
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction>Excluir</AlertDialogAction>
+            <Button onClick={handleDeleteProduct} disabled={isDeleting}>
+              {isDeleting ? (
+                <div className="flex items-center gap-2">
+                  <LoaderCircle size={24} className="animate-spin" />
+                  <p>Excluindo...</p>
+                </div>
+              ) : (
+                'Excluir'
+              )}
+            </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

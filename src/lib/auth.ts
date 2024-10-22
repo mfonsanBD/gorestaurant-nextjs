@@ -9,8 +9,9 @@ import { eq } from 'drizzle-orm'
 
 export const authOptions: AuthOptions = {
   adapter: DrizzleAdapter(db), // Conectar o Auth.js ao Drizzle ORM
+  secret: process.env.NEXTAUTH_SECRET,
   pages: {
-    signIn: '/login', // Página de login personalizada
+    signIn: '/admin/login', // Página de login personalizada
   },
   session: {
     strategy: 'jwt', // Usar JWT para sessões

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 import './globals.css'
 import { AuthProvider } from '@/providers/auth'
+import { Toaster } from '@/components/ui/toaster'
 
 const poppins = Poppins({
   weight: ['400', '500', '700', '900'],
@@ -26,6 +27,7 @@ export default function RootLayout({
     <html lang="pt-br">
       <body className={`${poppins.variable} antialiased`}>
         <AuthProvider>{children}</AuthProvider>
+        <Toaster />
       </body>
     </html>
   )
