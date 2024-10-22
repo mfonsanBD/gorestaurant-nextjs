@@ -2,9 +2,9 @@ declare interface ProductsProps {
   id?: number
   name: string
   description: string
-  photo: string
+  photo?: string
   price: number
-  isActive: boolean
+  isActive?: boolean
 }
 
 declare interface ProductItemsProps {

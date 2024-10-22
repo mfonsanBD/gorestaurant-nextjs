@@ -72,3 +72,21 @@ export async function updateProductStatus(status: boolean, id: number) {
     }
   }
 }
+
+export async function editProduct(product: ProductsProps) {
+  try {
+    await db.update(products).set(product).where(eq(products.id, product.id!))
+    revalidateTag('products')
+
+    return {
+      message: 'Produto alterado com sucesso!',
+      statusCode: 201,
+    }
+  } catch (error) {
+    console.error(error)
+    return {
+      message: 'Erro interno do servidor. Tente novamente mais tarde!',
+      statusCode: 500,
+    }
+  }
+}

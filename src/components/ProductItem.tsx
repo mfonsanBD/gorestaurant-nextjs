@@ -15,7 +15,6 @@ import {
 } from './ui/tooltip'
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -24,6 +23,7 @@ import {
   AlertDialogTitle,
 } from './ui/alert-dialog'
 import { deleteProduct, updateProductStatus } from '@/actions/product'
+import { EditProductForm } from './EditProductForm'
 
 export const ProductItem = ({
   description,
@@ -143,10 +143,17 @@ export const ProductItem = ({
               produto.
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction>Salvar Alterações</AlertDialogAction>
-          </AlertDialogFooter>
+          <EditProductForm
+            onModalOpen={setOpenEdit}
+            product={{
+              description,
+              id,
+              isActive,
+              name,
+              photo,
+              price,
+            }}
+          />
         </AlertDialogContent>
       </AlertDialog>
 
