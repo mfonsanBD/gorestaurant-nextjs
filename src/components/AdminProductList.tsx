@@ -40,7 +40,7 @@ export const AdminProductList = ({ products }: ProductItemsProps) => {
         className={clsx(
           'flex w-full flex-col items-center justify-center gap-2 rounded-lg bg-white text-zinc-400',
           {
-            'h-full': products.length > 0,
+            'h-80 lg:h-full': products.length > 0,
             'h-96': products.length == 0,
           },
         )}
