@@ -74,8 +74,6 @@ export const AddProductForm = ({ onModalOpen }: ProductPageProps) => {
     resolver: zodResolver(schema),
   })
 
-  console.log(errors)
-
   const handleChangeImage = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
 
