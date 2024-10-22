@@ -18,7 +18,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { Switch } from './ui/switch'
 import { Label } from './ui/label'
 import { Input } from './ui/input'
-import { saveFromFile, saveFromUrl } from '@/actions/saveImage'
+import { saveFromUrl } from '@/actions/saveImage'
 import clsx from 'clsx'
 
 const schema = z
@@ -26,7 +26,7 @@ const schema = z
     name: z.string().nonempty('O campo [Produto] é obrigatório.'),
     description: z.string().nonempty('O campo [Descrição] é obrigatório.'),
     isUrl: z.boolean().default(true),
-    url: z.string().url({ message: 'A URL da foto é inválida.' }).optional(),
+    url: z.string(),
     file: z
       .any()
       .refine((file) => file.size <= 2 * 1024 * 1024, {
@@ -112,9 +112,16 @@ export const AddProductForm = ({ onModalOpen }: ProductPageProps) => {
       const fileName: string = `${uuidv4()}.jpg`
 
       if (photoIsUrl) {
-        await saveFromUrl(data.url as string, fileName)
+        await saveFromUrl(data.url, fileName)
       } else {
-        await saveFromFile(data.file as File, fileName)
+        const formData = new FormData()
+        formData.append('file', data.file as File)
+        formData.append('fileName', fileName)
+
+        await fetch(`/api/saveFile`, {
+          method: 'POST',
+          body: formData,
+        })
       }
 
       const allData = { ...data, userId: session?.user.id, photo: fileName }
@@ -159,7 +166,7 @@ export const AddProductForm = ({ onModalOpen }: ProductPageProps) => {
           defaultValue=""
           render={({ field: { onChange, value } }) => (
             <InputText
-              value={value}
+              value={value as string}
               label="Foto"
               type="url"
               labelFor="url"

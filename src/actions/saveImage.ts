@@ -3,7 +3,7 @@
 import fs from 'fs'
 import https from 'https'
 
-export const saveFromUrl = async (url: string, fileName: string) => {
+export async function saveFromUrl(url: string, fileName: string) {
   return new Promise<void>((resolve, reject) => {
     https
       .get(url, (response) => {
@@ -24,10 +24,4 @@ export const saveFromUrl = async (url: string, fileName: string) => {
         reject(err)
       })
   })
-}
-
-export const saveFromFile = async (file: File, fileName: string) => {
-  const buffer = await file.arrayBuffer()
-  const view = new Uint8Array(buffer)
-  fs.writeFileSync(`public/upload/${fileName}`, view)
 }
