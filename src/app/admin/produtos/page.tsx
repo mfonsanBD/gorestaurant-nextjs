@@ -1,5 +1,4 @@
 import { getProducts } from '@/actions/product'
-import { APPNAME } from '@/app/layout'
 import { AdminProductList } from '@/components/AdminProductList'
 import { Header } from '@/components/Header'
 import { authOptions } from '@/lib/auth'
@@ -8,7 +7,7 @@ import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
-  title: `Área Administrativa - Produtos - ${APPNAME}`,
+  title: `Área Administrativa - Produtos - ${process.env.APPNAME}`,
 }
 
 export default async function AdminPage() {

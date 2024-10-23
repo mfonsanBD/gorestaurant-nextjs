@@ -1,15 +1,8 @@
+import { getProducts } from '@/actions/product'
 import { ProductHomeItem } from './ProductHomeItem'
 
-async function getAllProducts(): Promise<ProductsProps[]> {
-  const endpoint = `${process.env.NEXTAUTH_URL}/api/products`
-  const data = await fetch(endpoint, { next: { tags: ['products'] } })
-  const { products } = await data.json()
-
-  return products
-}
-
 export const ProductList = async () => {
-  const products = await getAllProducts()
+  const products = (await getProducts()) || []
   return (
     <section className="grid w-full grid-cols-1 gap-4 lg:grid-cols-3">
       {products.length > 0 ? (

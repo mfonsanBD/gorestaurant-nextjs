@@ -1,10 +1,9 @@
-import { APPNAME } from '@/app/layout'
 import { Header } from '@/components/Header'
 import { Metadata } from 'next'
 import { LoginForm } from '@/components/LoginForm'
 
 export const metadata: Metadata = {
-  title: `Área Administrativa - Login - ${APPNAME}`,
+  title: `Área Administrativa - Login - ${process.env.APPNAME}`,
 }
 
 export default function AdminLoginPage() {

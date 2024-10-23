@@ -11,11 +11,9 @@ const poppins = Poppins({
   variable: '--font-poppins',
 })
 
-export const APPNAME: string = 'Go Restaurant'
-
 export const metadata: Metadata = {
-  title: `Cardápio - ${APPNAME}`,
-  description: `Acompanhe a lista de produtos no cardápio da ${APPNAME}`,
+  title: `Cardápio - ${process.env.APPNAME}`,
+  description: `Acompanhe a lista de produtos no cardápio da ${process.env.APPNAME}`,
 }
 
 export default function RootLayout({
