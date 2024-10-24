@@ -1,12 +1,19 @@
 import { Header } from '@/components/Header'
 import { Metadata } from 'next'
 import { LoginForm } from '@/components/LoginForm'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/lib/auth'
+import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
   title: `Área Administrativa - Login - ${process.env.APPNAME}`,
 }
 
-export default function AdminLoginPage() {
+export default async function AdminLoginPage() {
+  const session = await getServerSession(authOptions)
+  if (session) {
+    redirect('/admin/produtos')
+  }
   return (
     <>
       <Header />

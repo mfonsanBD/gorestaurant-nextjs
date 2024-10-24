@@ -18,7 +18,7 @@ export const Header = () => {
     <header className="bg-[#C72828]">
       <nav
         aria-label="Global"
-        className="mx-auto flex max-w-7xl items-center justify-center p-6 lg:px-8 lg:pb-32 lg:pt-12"
+        className="mx-auto flex max-w-7xl items-center justify-center px-6 py-8 lg:px-8 lg:pb-32 lg:pt-12"
       >
         <div
           className={`flex w-full items-center ${pathname.includes('produtos') ? 'justify-between' : 'justify-center'} gap-4`}
