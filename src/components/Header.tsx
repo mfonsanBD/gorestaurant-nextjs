@@ -20,13 +20,15 @@ export const Header = () => {
         aria-label="Global"
         className="mx-auto flex max-w-7xl items-center justify-center p-6 lg:px-8 lg:pb-32 lg:pt-12"
       >
-        <div className="flex w-full items-center justify-between gap-4">
-          <a href="/" className="-m-1.5 p-1.5">
-            <span className="sr-only">Go Restaurant</span>
+        <div
+          className={`flex w-full items-center ${pathname.includes('produtos') ? 'justify-between' : 'justify-center'} gap-4`}
+        >
+          <a href="/" className="-m-1.5 h-28 w-auto p-1.5">
+            <span className="sr-only">Picanha do Jorginho</span>
             <img
-              alt="Logotipo Go Restaurant"
+              alt="Logotipo Picanha do Jorginho"
               src="/img/logo.svg"
-              className="h-12 w-auto"
+              className="h-28 w-auto"
             />
           </a>
 
@@ -36,7 +38,7 @@ export const Header = () => {
                 <TooltipTrigger asChild>
                   <Button
                     size="icon"
-                    className="bg-yellow-400 text-yellow-800 hover:bg-yellow-500"
+                    className="w-10 bg-yellow-400 text-yellow-800 hover:bg-yellow-500"
                     onClick={() =>
                       signOut({
                         redirect: true,
