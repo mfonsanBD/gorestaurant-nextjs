@@ -57,7 +57,7 @@ export const ProductItem = ({
       <div>
         <div className="relative h-56 w-full">
           <Image
-            src={`/upload/${photo}`}
+            src={photo!}
             alt={name}
             fill
             priority
