@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
     await new Promise<void>((resolve, reject) => {
       https
         .get(url, (response) => {
-          const fileStream = fs.createWriteStream(`public/upload/${filename}`)
+          const fileStream = fs.createWriteStream(`/upload/${filename}`)
 
           response.pipe(fileStream)
 

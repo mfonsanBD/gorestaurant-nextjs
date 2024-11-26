@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
 
     const buffer = await file.arrayBuffer()
     const view = new Uint8Array(buffer)
-    fs.writeFileSync(`public/upload/${filename}`, view)
+    fs.writeFileSync(`/upload/${filename}`, view)
 
     return NextResponse.json(
       {
