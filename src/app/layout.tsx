@@ -13,7 +13,7 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: `Cardápio - ${process.env.APPNAME}`,
-  description: `Acompanhe a lista de produtos no cardápio da ${process.env.APPNAME}`,
+  description: `Acompanhe a lista de produtos no cardápio do restaurante ${process.env.APPNAME}`,
 }
 
 export default function RootLayout({
